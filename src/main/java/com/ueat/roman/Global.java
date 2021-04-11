@@ -3,10 +3,10 @@ import java.util.Map;
 public class Global {
     /*  REGULAR EXPRESSION
         WHY?
-        M{0,3} at the beginning of the string max MMM
-        (CM|CD|D?C{0,3}) once of  CM or CD or D or max CCC
-        (XC|XL|L?X{0,3}) once of  XC or XL or L or max XXX
-        (IX|IV|V?I{0,3}) once of  IX or IV or V or max III
+        M{0,3} at the beginning of the string max MMM, it specifies the thousands
+        (CM|CD|D?C{0,3}) once of  CM or CD or D or max CCC, it specifies the hundreds
+        (XC|XL|L?X{0,3}) once of  XC or XL or L or max XXX, it specifies the tens
+        (IX|IV|V?I{0,3}) once of  IX or IV or V or max III, it specifies the units
         .
      */
 
@@ -25,8 +25,6 @@ public class Global {
 
     //MESSAGES SECTION
     public static final int WRONG_FORMAT = -1;
-    public static final String ADD_NUMBER = "Enter a roman number: ";
-    public static final String STOP = "Type 'exit' to stop. ";
     public static final String VALIDATE = "Validate your roman number";
     public static final String SHOW_RESULT = "After parse, the result is: ";
 

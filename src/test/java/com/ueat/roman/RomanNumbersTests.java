@@ -69,6 +69,6 @@ public class RomanNumbersTests {
 
 	@Test
 	public void main() {
-		assertDoesNotThrow(() -> UeatTestApplication.main(new String[] { "X", "XXI" }));
+		assertDoesNotThrow(() -> UeatTestApplication.main(new String[] {}));
 	}
 }
