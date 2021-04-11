@@ -3,8 +3,9 @@ package com.ueat.roman;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,33 +14,29 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class UeatTestApplicationTests {
+public class RomanNumbersTests {
 
-	private static Logger logger = LoggerFactory.getLogger(UeatTestApplicationTests.class);
-	private static ParseRomanToArabic parseRomanToArabic = new ParseRomanToArabic();
-@BeforeClass
-public static void setup(){
-	System.out.println("testing");
-}
+	private static Logger logger = LoggerFactory.getLogger(RomanNumbersTests.class);
+	private static ParseRomanToArabic parseRomanToArabic;
+
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		logger.info("Init config");
+		parseRomanToArabic = new ParseRomanToArabic();
+	}
+
 	@Test
-	void testValidationNumberSuccess() {
-		Assertions.assertTrue(parseRomanToArabic.validate("I"));
-		Assertions.assertTrue(parseRomanToArabic.validate("V"));
-		Assertions.assertTrue(parseRomanToArabic.validate("X"));
-		Assertions.assertTrue(parseRomanToArabic.validate("L"));
-		Assertions.assertTrue(parseRomanToArabic.validate("C"));
-		Assertions.assertTrue(parseRomanToArabic.validate("D"));
-		Assertions.assertTrue(parseRomanToArabic.validate("M"));
+	public void validationNumberSuccess() {
 
-		Assertions.assertTrue(parseRomanToArabic.validate("XXI"));
+		Assertions.assertTrue(parseRomanToArabic.validate("X"));
 		Assertions.assertTrue(parseRomanToArabic.validate("XL"));
 		Assertions.assertTrue(parseRomanToArabic.validate("LVIII"));
-		
 
 	}
 
 	@Test
-	void testValidationNumberFail() {
+	public void validationNumberFail() {
+
 		Assertions.assertFalse(parseRomanToArabic.validate("LL"));
 		Assertions.assertFalse(parseRomanToArabic.validate("MMMM"));
 		Assertions.assertFalse(parseRomanToArabic.validate("CMCM"));
@@ -47,9 +44,7 @@ public static void setup(){
 	}
 
 	@Test
-	void testParseNumberSuccess() {
-		
-		Assertions.assertEquals(55, parseRomanToArabic.parseRomanNumber("LV"));
+	public void parseNumberSuccess() {
 		Assertions.assertEquals(21, parseRomanToArabic.parseRomanNumber("XXI"));
 		Assertions.assertEquals(40, parseRomanToArabic.parseRomanNumber("XL"));
 		Assertions.assertEquals(58, parseRomanToArabic.parseRomanNumber("LVIII"));
@@ -57,15 +52,24 @@ public static void setup(){
 	}
 
 	@Test
-	void testParseNumberFail() {
-		parseRomanToArabic = new ParseRomanToArabic();
+	public void parseNumberWrongFormat() {
+		Assertions.assertEquals(-1, parseRomanToArabic.parseRomanNumber("MMMMM"));
 
-		Assertions.assertEquals(-1, parseRomanToArabic.parseRomanNumber("MMMM"));
+	}
+
+	@Test
+	public void parseNumberEmpty() {
 		Assertions.assertEquals(-1, parseRomanToArabic.parseRomanNumber(""));
+
+	}
+
+	@Test
+	public void parseNumberNull() {
 		Assertions.assertEquals(-1, parseRomanToArabic.parseRomanNumber(null));
 	}
+
 	@Test
-	void main() {
-		assertDoesNotThrow(() -> UeatTestApplication.main(new String[]{"x","XXI"}));
+	public void main() {
+		assertDoesNotThrow(() -> UeatTestApplication.main(new String[] { "X", "XXI" }));
 	}
 }
