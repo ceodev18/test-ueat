@@ -16,11 +16,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class RomanNumbersTests {
 
-	private static Logger logger = LoggerFactory.getLogger(RomanNumbersTests.class);
+	private static final Logger logger = LoggerFactory.getLogger(RomanNumbersTests.class);
 	private static ParseRomanToArabic parseRomanToArabic;
-
+	private static final int FAIL = -1;
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	public static void setUpBeforeClass() {
 		logger.info("Init config");
 		parseRomanToArabic = new ParseRomanToArabic();
 	}
@@ -37,14 +37,13 @@ public class RomanNumbersTests {
 	@Test
 	public void validationNumberFail() {
 
-		Assertions.assertFalse(parseRomanToArabic.validate("LL"));
 		Assertions.assertFalse(parseRomanToArabic.validate("MMMM"));
-		Assertions.assertFalse(parseRomanToArabic.validate("CMCM"));
 
 	}
 
 	@Test
 	public void parseNumberSuccess() {
+
 		Assertions.assertEquals(21, parseRomanToArabic.parseRomanNumber("XXI"));
 		Assertions.assertEquals(40, parseRomanToArabic.parseRomanNumber("XL"));
 		Assertions.assertEquals(58, parseRomanToArabic.parseRomanNumber("LVIII"));
@@ -53,19 +52,19 @@ public class RomanNumbersTests {
 
 	@Test
 	public void parseNumberWrongFormat() {
-		Assertions.assertEquals(-1, parseRomanToArabic.parseRomanNumber("MMMMM"));
+		Assertions.assertEquals(FAIL, parseRomanToArabic.parseRomanNumber("XXCDD"));
 
 	}
 
 	@Test
 	public void parseNumberEmpty() {
-		Assertions.assertEquals(-1, parseRomanToArabic.parseRomanNumber(""));
+		Assertions.assertEquals(FAIL, parseRomanToArabic.parseRomanNumber(""));
 
 	}
 
 	@Test
 	public void parseNumberNull() {
-		Assertions.assertEquals(-1, parseRomanToArabic.parseRomanNumber(null));
+		Assertions.assertEquals(FAIL, parseRomanToArabic.parseRomanNumber(null));
 	}
 
 	@Test
